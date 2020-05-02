@@ -5,6 +5,8 @@ Version: 1.0
 '''
 
 import subprocess
+from multiprocessing import Process
+import time
 
 # delete the old one
 # terminal $ rm quotes.json 
@@ -25,19 +27,32 @@ def getData():
 def sendEmail():
 	subprocess.check_call(sendEmailCmd)	
 
-def main():
+def mySpider():
 	try:
 		deleteDoc()
-		print("quotes.json is deleted successful!")
-	except:
-		print("quotes.json has been already deleted.")
+		# print("quotes.json is deleted successful!")
+
+		getData()
+		# print("Grab data. Done!")
+
+		sendEmail()
+		# print("Send email. Done!")
 	
+	except:
+		print("error!")
 
-	getData()
-	print("Grab data, Done!")
 
-	sendEmail()
-	print("Send email, Done!")
+def main():
+	# it is a dead loop, press ctrl c to exit!
+	while True:
+		p = Process(target=mySpider)
+		p.start()
+		p.join()
+		time.sleep(43200)
+
+	# run process in background , please add '&'
+	# kill process $ kill pid 
+
 
 if __name__ == "__main__":
 	main()
