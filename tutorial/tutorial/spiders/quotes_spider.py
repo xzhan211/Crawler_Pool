@@ -22,7 +22,19 @@ class QuotesSpider(scrapy.Spider):
         line = []
         for row in rows:
             line.append(row.css('td::text').get().strip())
-            # print(line)
+            lis = row.css('ul li')
+            for l in lis:
+                stringBuilder = ''
+                strs = l.css('li::text').getall()
+                for s in strs:
+                    s = s.strip()
+                    stringBuilder += s + ' '
+                    if s == 'Referred to':
+                        stringBuilder += l.css('strong::text').get() + ' '
+                # print(stringBuilder)
+                line.append(stringBuilder)
+
+
         yield{
             'ID' : title,
             'Info' : line, 

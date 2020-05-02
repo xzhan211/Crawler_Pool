@@ -31,15 +31,16 @@ def mySpider():
 	try:
 		deleteDoc()
 		# print("quotes.json is deleted successful!")
+	except:
+		print("file is not exist!")
 
+	try:
 		getData()
 		# print("Grab data. Done!")
-
 		sendEmail()
 		# print("Send email. Done!")
-	
 	except:
-		print("error!")
+		print("error in getData() or sendEmail()")
 
 
 def main():
