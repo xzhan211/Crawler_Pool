@@ -32,7 +32,7 @@ def mySpider():
 		deleteDoc()
 		# print("quotes.json is deleted successful!")
 	except:
-		print("file is not exist!")
+		print("file doesn't exist, don't worry!")
 
 	try:
 		getData()
